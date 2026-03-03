@@ -126,7 +126,22 @@ public class SingularList {
         }
         return n;
     }
-
+    public void searchANumberAndChangeTheValue(int index, int value){
+        int counter = 0; 
+        Node current = head;
+        
+        while (counter < index && current != null) {
+            current = current.next;
+            counter += 1;
+        }
+        if (current == null) {
+            System.out.println("Angka tidak ketemu");
+            return;
+        }
+        else if (counter == index){
+            current.info = value;
+        }
+    }
     public static void main(String[] args) {
         // buat object 'List' dari class SingleList
         SingularList List = new SingularList();
