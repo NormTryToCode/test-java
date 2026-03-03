@@ -54,8 +54,10 @@ public class SingularList {
         // (node pertama yang ditunjuk oleh head)
         Node curr = head;
         // jika list kosong, tampilkan pesan list kosong
-        if (curr == null)
-            System.out.println("List kosong!");
+        if (curr == null){
+            System.out.println("[]");
+            return;
+        }
         /*
          * jika list tidak kosong, maka cetak bagian informasi
          * dari setiap node yang dikunjungi.
@@ -140,7 +142,23 @@ public class SingularList {
         }
         else if (counter == index){
             current.info = value;
+        } 
+    }
+    public void append(int data){
+        Node checker = head;
+        Node current = new Node(data);
+        if (checker == null) {
+            head = current;
+            return;
         }
+        while (checker != null){
+            if (checker.next == null) {
+                checker.next = current;
+                return;
+            }
+            checker = checker.next;
+        }
+
     }
     public static void main(String[] args) {
         // buat object 'List' dari class SingleList

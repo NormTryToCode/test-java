@@ -6,8 +6,7 @@ public class splitLinkedList {
         myNewLinkedList.pushQ(30);
         myNewLinkedList.pushQ(40);
         myNewLinkedList.printList();
-        myNewLinkedList.searchANumberAndChangeTheValue(2, 35);
-        myNewLinkedList.printList();
+        
         System.out.println(myNewLinkedList.countElements());
         SplittedList splittedList = myNewLinkedList.splitList();
         SingularList theFirstHalfOfTheList = splittedList.getTheFirstHalf();
