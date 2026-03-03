@@ -1,23 +1,10 @@
-/*
- * Learning LinkedList Singular
- * head -> |10|o->|20|o->|30| <-o tail
- * 
- * @author: Lely Hiryanto
- */
 
-/*
-* class untuk mendefinisikan satu node di linkedlist 
-* [info | next]   
-* info = bagian node yang berisi informasi (teks, bilangan, object of a class)
-* next = bagian node yang berisi alamat (pointer) ke node lainnya
-*/
-
-class Node {
-    int info;
-    Node next;
+class Node<T> {
+    T info;
+    Node<T> next;
 
     // constructor
-    public Node(int data) {
+    public Node(T data) {
         this.info = data;
         this.next = null;
     }
@@ -25,17 +12,43 @@ class Node {
 
 
 
-public class SingularList {
-    Node head = null; // pointer ke node pertama
-    Node tail = null; // pointer ke node terakhir
+
+class SplittedList<T> {
+    private SingularListMore<T> theFirstHalf;
+    private SingularListMore<T> theOtherHalf;
+
+    public SplittedList(SingularListMore<T> firstHalf, SingularListMore<T> otherHalf) {
+        this.setTheFirstHalf(firstHalf);
+        this.setTheSecondHalf(otherHalf);
+    }
+
+    public void setTheFirstHalf(SingularListMore<T> firstHalf){
+        this.theFirstHalf = firstHalf;
+    }
+
+    public void setTheSecondHalf(SingularListMore<T> secondHalf){
+        this.theOtherHalf = secondHalf;
+    }
+
+    public SingularListMore<T> getTheFirstHalf(){
+        return this.theFirstHalf;
+    }
+
+    public SingularListMore<T> getTheSecondHalf(){
+        return this.theOtherHalf;
+    }
+}
+public class SingularListMore<T> {
+    Node<T> head = null; // pointer ke node pertama
+    Node<T> tail = null; // pointer ke node terakhir
 
     /*
      * Setiap node baru yang dibuat diletakkan di akhir list
      * (queue)
      */
-    public void pushQ(int data) {
+    public void pushQ(T data) {
         // buat node baru
-        Node newNode = new Node(data);
+        Node<T> newNode = new Node<>(data);
         // jika list kosong, head dan tail sama-sama menunjuk ke node pertama
         if (head == null) {
             head = newNode;
@@ -52,7 +65,7 @@ public class SingularList {
     public void printList() {
         // set pointer curr untuk menunjuk ke node pertama
         // (node pertama yang ditunjuk oleh head)
-        Node curr = head;
+        Node<T> curr = head;
         // jika list kosong, tampilkan pesan list kosong
         if (curr == null){
             System.out.println("[]");
@@ -80,7 +93,7 @@ public class SingularList {
     }
 
     public int countElements() {
-        Node current;
+        Node<T> current;
         current = head;
         int count = 0;
         while (current != null) {
@@ -90,12 +103,12 @@ public class SingularList {
         return count;
     }
 
-    public SplittedList splitList() {
-        SingularList newList = new SingularList();
-        SingularList newListOtherHalf = new SingularList();
+    public SplittedList<T> splitList() {
+        SingularListMore<T> newList = new SingularListMore<>();
+        SingularListMore<T> newListOtherHalf = new SingularListMore<>();
         int elementCount = this.countElements();
         int count = 0;
-        Node current = head;
+        Node<T> current = head;
         while (current != null) {
             if (count < elementCount / 2) {
                 newList.pushQ(current.info);
@@ -109,14 +122,14 @@ public class SingularList {
             
 
         }
-        SplittedList newSplitList = new SplittedList(newList, newListOtherHalf);
+        SplittedList<T> newSplitList = new SplittedList<>(newList, newListOtherHalf);
         return newSplitList;
 
     }
 
     // pop, mengambil node pertama dan menghapusnya dari list
-    Node pop() {
-        Node n;
+    Node<T> pop() {
+        Node<T> n;
         if (head == null)
             return head;
         else {
@@ -128,9 +141,9 @@ public class SingularList {
         }
         return n;
     }
-    public void searchANumberAndChangeTheValue(int index, int value){
+    public void searchANumberAndChangeTheValue(int index, T value){
         int counter = 0; 
-        Node current = head;
+        Node<T> current = head;
         
         while (counter < index && current != null) {
             current = current.next;
@@ -144,44 +157,19 @@ public class SingularList {
             current.info = value;
         } 
     }
+
     public static void main(String[] args) {
         // buat object 'List' dari class SingleList
-        SingularList List = new SingularList();
+        SingularListMore<Integer> List = new SingularListMore<>();
         // mulai menyisipkan node per node ke list
         List.pushQ(10);
         List.pushQ(20);
         List.pushQ(30);
         // mencetak isi dari list (bagian informasi dari setiap node)
         List.printList();
-        Node n = List.pop();
+        Node<Integer> n = List.pop();
         if (n != null)
             System.out.println("Remove node " + n.info);
         List.printList();
-    }
-}
-
-class SplittedList {
-    private SingularList theFirstHalf;
-    private SingularList theOtherHalf;
-
-    public SplittedList(SingularList firstHalf, SingularList otherHalf) {
-        this.setTheFirstHalf(firstHalf);
-        this.setTheSecondHalf(otherHalf);
-    }
-
-    public void setTheFirstHalf(SingularList firstHalf){
-        this.theFirstHalf = firstHalf;
-    }
-
-    public void setTheSecondHalf(SingularList secondHalf){
-        this.theOtherHalf = secondHalf;
-    }
-
-    public SingularList getTheFirstHalf(){
-        return this.theFirstHalf;
-    }
-
-    public SingularList getTheSecondHalf(){
-        return this.theOtherHalf;
     }
 }

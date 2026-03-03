@@ -10,11 +10,11 @@ public class searchingNumberThroughFromALinkedList {
 
         newLinkedList.searchANumberAndChangeTheValue(5, 0);
         newLinkedList.printList();
-        newLinkedList.append(2);
-        
+        newLinkedList.pushQ(2);
+
         secondLinkedList.printList();
-        secondLinkedList.append(0);
-        secondLinkedList.append(1);
+        secondLinkedList.pushQ(0);
+        secondLinkedList.pushQ(1);
         secondLinkedList.printList();
         newLinkedList.printList();
     }
