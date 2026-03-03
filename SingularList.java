@@ -23,6 +23,8 @@ class Node {
     }
 }
 
+
+
 public class SingularList {
     Node head = null; // pointer ke node pertama
     Node tail = null; // pointer ke node terakhir
@@ -59,9 +61,10 @@ public class SingularList {
          * dari setiap node yang dikunjungi.
          */
         else {
-            System.out.print("[ ");
+            System.out.print("[");
             while (curr != null) {
-                System.out.print(curr.info + " ");
+                if (curr.next != null){System.out.print(curr.info + ", ");}
+                else {System.out.print(curr.info);}
                 /*
                  * curr diupdate untuk menunjuk ke node selanjutnya
                  * sampai curr null, dimana curr diset ke bagian 'next'
@@ -85,25 +88,27 @@ public class SingularList {
         return count;
     }
 
-    public SingularList splitList() {
+    public SplittedList splitList() {
         SingularList newList = new SingularList();
         SingularList newListOtherHalf = new SingularList();
+        int elementCount = this.countElements();
         int count = 0;
         Node current = head;
-        while (true) {
-            if (count < this.countElements() / 2) {
+        while (current != null) {
+            if (count < elementCount / 2) {
                 newList.pushQ(current.info);
                 current = current.next;
                 count += 1;
-            } else if (count <= this.countElements()) {
+            } else {
                 newListOtherHalf.pushQ(current.info);
                 current = current.next;
                 count += 1;
             }
-            break;
+            
 
         }
-        return newList;
+        SplittedList newSplitList = new SplittedList(newList, newListOtherHalf);
+        return newSplitList;
 
     }
 
@@ -135,5 +140,31 @@ public class SingularList {
         if (n != null)
             System.out.println("Remove node " + n.info);
         List.printList();
+    }
+}
+
+class SplittedList {
+    private SingularList theFirstHalf;
+    private SingularList theOtherHalf;
+
+    public SplittedList(SingularList firstHalf, SingularList otherHalf) {
+        this.setTheFirstHalf(firstHalf);
+        this.setTheSecondHalf(otherHalf);
+    }
+
+    public void setTheFirstHalf(SingularList firstHalf){
+        this.theFirstHalf = firstHalf;
+    }
+
+    public void setTheSecondHalf(SingularList secondHalf){
+        this.theOtherHalf = secondHalf;
+    }
+
+    public SingularList getTheFirstHalf(){
+        return this.theFirstHalf;
+    }
+
+    public SingularList getTheSecondHalf(){
+        return this.theOtherHalf;
     }
 }
